@@ -4,7 +4,7 @@ import { Trash2 } from 'lucide-react';
 export default function DeleteConfirmModal({ isOpen, onClose, onConfirm, word }) {
   if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 z-[999] flex items-center justify-center px-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
       <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" onClick={onClose} />
       <div className="relative w-full max-w-xs bg-white rounded-2xl border border-slate-100 shadow-xl p-5 animate-in">
         {/* Icon */}

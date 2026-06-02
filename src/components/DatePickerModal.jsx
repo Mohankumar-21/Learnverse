@@ -5,7 +5,7 @@ export default function DatePickerModal({ isOpen, onClose, value, onChange }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4 z-[999] animate-in fade-in zoom-in-95 duration-150">
+    <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-in fade-in zoom-in-95 duration-150">
       <div className="bg-white rounded-2xl border border-slate-100 shadow-xl max-w-sm w-full p-5 relative">
         <button
           onClick={onClose}

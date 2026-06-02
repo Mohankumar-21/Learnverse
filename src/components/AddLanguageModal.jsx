@@ -43,9 +43,9 @@ export default function AddLanguageModal({ isOpen, onClose, onSubmit }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
       <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" onClick={createdCode ? onClose : onClose} />
-      <div className="relative w-full sm:max-w-sm bg-white rounded-2xl border border-gray-100 shadow-xl max-h-[90vh] overflow-y-auto slide-up">
+      <div className="relative w-full sm:max-w-sm bg-white rounded-t-2xl sm:rounded-2xl border border-gray-100 shadow-xl max-h-[85vh] overflow-y-auto sm:slide-up">
         <div className="p-5">
           {createdCode ? (
             /* Success — show join code */

@@ -47,6 +47,14 @@ const groupByDate = (notes) => {
   return Object.entries(buckets).filter(([, a]) => a.length > 0);
 };
 
+const formatCompactDate = (dateStr) => {
+  if (!dateStr) return '';
+  const parts = dateStr.split('-');
+  if (parts.length < 3) return dateStr;
+  const [, month, day] = parts;
+  return `${month}/${day}`;
+};
+
 /* ─── App ─── */
 export default function App() {
   const storedUser = (() => {
@@ -341,15 +349,22 @@ export default function App() {
               </div>
             ) : (
               <div className="flex flex-row items-center justify-between gap-3 mb-5">
-                {/* Left: Filter options */}
-                <div className="flex items-center gap-1.5 min-w-0">
+                {/* Left Side: Add Note Button (replacing language name) */}
+                <button onClick={() => { setEditNote(null); setShowNote(true); }}
+                  className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-bold text-white rounded-lg shadow-sm hover:-translate-y-0.5 active:scale-95 transition-all cursor-pointer flex-shrink-0"
+                  style={{ backgroundColor: langColor }}>
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>Add Note</span>
+                </button>
+                
+                {/* Right Side: Filters & Search */}
+                <div className="flex items-center gap-1.5 flex-shrink-0">
                   {/* Date selection dropdown */}
                   <div className="relative">
                     <Filter className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
                     <select
                       value={dateFilter}
                       onChange={(e) => {
-                        e.target.blur();
                         if (e.target.value === 'custom') {
                           setShowDateModal(true);
                         } else {
@@ -373,9 +388,9 @@ export default function App() {
                   {dateFilter === 'custom' && customDate && (
                     <button
                       onClick={() => setShowDateModal(true)}
-                      className="px-2 py-1 text-[10px] font-bold bg-violet-50 border border-violet-100 text-violet-600 rounded-lg cursor-pointer transition hover:bg-violet-100 whitespace-nowrap"
+                      className="px-2 py-1 text-[10px] font-bold bg-violet-50 border border-violet-100 text-violet-600 rounded-lg cursor-pointer transition hover:bg-violet-100 flex-shrink-0"
                     >
-                      {customDate}
+                      {formatCompactDate(customDate)}
                     </button>
                   )}
 
@@ -386,30 +401,20 @@ export default function App() {
                         setDateFilter('all');
                         setCustomDate('');
                       }}
-                      className="w-7 h-7 flex items-center justify-center rounded-lg bg-red-50 border border-red-200 text-red-500 hover:bg-red-100 transition-colors cursor-pointer"
+                      className="w-7 h-7 flex items-center justify-center rounded-lg bg-red-50 border border-red-200 text-red-500 hover:bg-red-100 transition-colors cursor-pointer flex-shrink-0"
                       title="Clear Date Filter"
                     >
                       <X className="w-3.5 h-3.5" />
                     </button>
                   )}
-                </div>
-                
-                {/* Right: Actions */}
-                <div className="flex items-center gap-1.5 flex-shrink-0">
+
                   {/* Search toggle trigger icon */}
                   <button
                     onClick={() => setShowSearchBar(true)}
-                    className="w-7 h-7 flex items-center justify-center rounded-lg bg-white border border-slate-200 text-slate-500 hover:text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
+                    className="w-7 h-7 flex items-center justify-center rounded-lg bg-white border border-slate-200 text-slate-500 hover:text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer flex-shrink-0"
                     title="Search notes"
                   >
                     <Search className="w-3.5 h-3.5" />
-                  </button>
-
-                  {/* Add note button */}
-                  <button onClick={() => { setEditNote(null); setShowNote(true); }}
-                    className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-bold text-white rounded-lg shadow-sm hover:-translate-y-0.5 transition-all cursor-pointer"
-                    style={{ backgroundColor: langColor }}>
-                    <Plus className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Add Note</span>
                   </button>
                 </div>
               </div>
