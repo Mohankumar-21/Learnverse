@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 
 export default function DatePickerModal({ isOpen, onClose, value, onChange }) {
+  const [localDate, setLocalDate] = useState(value || '');
+
+  // Keep localState in sync with value prop when modal is opened
+  useEffect(() => {
+    if (isOpen) {
+      setLocalDate(value || '');
+    }
+  }, [isOpen, value]);
+
   if (!isOpen) return null;
+
+  const handleDone = () => {
+    onChange(localDate);
+    onClose();
+  };
+
+  const handleClear = () => {
+    onChange('');
+    onClose();
+  };
 
   return (
     <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-in fade-in zoom-in-95 duration-150">
@@ -19,26 +38,20 @@ export default function DatePickerModal({ isOpen, onClose, value, onChange }) {
 
         <input
           type="date"
-          value={value}
-          onChange={(e) => {
-            onChange(e.target.value);
-            onClose();
-          }}
+          value={localDate}
+          onChange={(e) => setLocalDate(e.target.value)}
           className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition cursor-pointer font-medium"
         />
 
         <div className="flex justify-end gap-2 mt-4 pt-3 border-t border-slate-100">
           <button
-            onClick={() => {
-              onChange('');
-              onClose();
-            }}
+            onClick={handleClear}
             className="px-3.5 py-2 text-xs font-bold text-slate-500 hover:bg-slate-50 rounded-xl transition cursor-pointer"
           >
             Clear Date
           </button>
           <button
-            onClick={onClose}
+            onClick={handleDone}
             className="px-3.5 py-2 text-xs font-bold text-white bg-slate-800 hover:bg-slate-900 rounded-xl transition cursor-pointer"
           >
             Done
