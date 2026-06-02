@@ -41,9 +41,9 @@ export default function AddNoteModal({
   const accent = langColor || '#7c3aed';
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
+    <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
       <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full sm:max-w-sm bg-white rounded-t-2xl sm:rounded-2xl border border-slate-100 shadow-xl p-5 max-h-[85vh] overflow-y-auto slide-up">
+      <div className="relative w-full sm:max-w-sm bg-white rounded-2xl border border-slate-100 shadow-xl p-5 max-h-[90vh] overflow-y-auto slide-up">
 
         {/* Header */}
         <div className="flex items-center justify-between mb-5">
